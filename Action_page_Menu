@@ -1,0 +1,52 @@
+<?php
+//browser-sync start --proxy 127.0.0.222 --files "*.php"    
+$username="root";
+$password = ""; 
+$server  = "localhost";   // Khai báo server
+$dbname  = "banhang_db";      // Khai báo database
+
+$MAKH1 = isset($_POST["MAKH"]) ? $_POST["MAKH"] : "";
+$TENKH1 = isset($_POST["TENKH"]) ? $_POST["TENKH"] : "";
+$SDT1 = isset($_POST["SDT"]) ? $_POST["SDT"] : "";
+$EMAILL1 = isset($_POST["EMAILL"]) ? $_POST["EMAILL"] : "";
+$DIACHI1 = isset($_POST["DIACHI"]) ? $_POST["DIACHI"] : "";
+
+$connect = new mysqli($server,$username,$password,$dbname);
+    
+
+//Nếu kết nối bị lỗi thì xuất báo lỗi và thoát. A                                               `````
+if ($connect->connect_error) {
+    die("Không kết nối :" . $conn->connect_error);
+    exit();
+}
+echo "Khi kết nối thành công den CSDL những dòng code bên dưới sẽ được thực hiện tiếp.";
+
+insertSQL($connect);
+
+function insertSQL($connect){
+
+    $MAKH1 = isset($_POST["MAKH"]) ? $_POST["MAKH"] : "";
+    $TENKH1 = isset($_POST["TENKH"]) ? $_POST["TENKH"] : "";
+    $SDT1 = isset($_POST["SDT"]) ? $_POST["SDT"] : "";
+    $EMAILL1 = isset($_POST["EMAILL"]) ? $_POST["EMAILL"] : "";
+    $DIACHI1 = isset($_POST["DIACHI"]) ? $_POST["DIACHI"] : "";
+
+    $i=0;
+
+    $sql ="INSERT INTO `tbl_register`(`MAKH`, `TENKH`, `SDT`, `EMAILL`, `DIACHI`) VALUES (' $MAKH1',' $TENKH1','$SDT1','$EMAILL1','$DIACHI1')";
+
+
+
+    if (mysqli_query($connect,$sql)) {
+        echo "<br>insert thanh cong";
+       
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($connect);
+  }
+
+  
+
+}
+
+
+?>
